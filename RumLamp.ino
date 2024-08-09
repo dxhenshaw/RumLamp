@@ -1,25 +1,24 @@
 #pragma region Introduction
 /*
 * Salford Rum Lamp -- David Henshaw, July - August 2020
-* v3 - xxx
-* v2 - xxx
-* v1 - xxx
-* v0 - Core functionality of solid hue lamp and various animations
+* v1 - Core functionality of solid hue lamp and various animations
 * Credit for animations to https://gist.github.com/StefanPetrick/c856b6d681ec3122e5551403aabfcc68
 * and Fire2012 by Mark Kriegsman
 * and Cine-Lights for multiple code examples - https://www.youtube.com/watch?v=64X5sJJ4YKM
+* and of course... FastLed.io
 * Rum Lamp has 192 pixels
+* Built for Arduino Micro board (Adafruit Itsy Bitsy)
+
 */
 #pragma endregion
 #pragma region Includes
-#include <FastLED.h>
+#include <FastLED.h>                    // Amazing library for working with programmable LEDs of all shapes & sizes
 #pragma endregion
 #pragma region Constants
-#define MATRIX_HEIGHT 18
+#define MATRIX_HEIGHT 18                // Technically it's 17 1/2 rows because of the way the strip loops around a cylinder
 #define MATRIX_WIDTH 11
-
-// following for candle and fire effect
-#define FRAMES_PER_SECOND 60   // how fast should the led animation render
+// Following are for candle and fire effect
+#define FRAMES_PER_SECOND 60            // How fast should the led animation render
 // COOLING: How much does the air cool as it rises?
 // Less cooling = taller flames.  More cooling = shorter flames.
 // Default 55, suggested range 20-100 
@@ -29,36 +28,48 @@ byte COOLING = 55;
 // Default 120, suggested range 50-200.
 #define SPARKING 120
 #pragma region NeoPixel
-const byte neoPixelPin = 7;							// data wire for neopixels
+const byte neoPixelPin = 7;				// data wire for neopixels
 #pragma endregion
 #pragma region Animation Program List
-const byte maxNumberAnimations = 13;                // How many animations are there? Now list them out...
+/* Version 2 has the following animations :
+* 0 Candle 
+* 1 Sports Teams: 49ers / Man United
+* 2 SF Giants / Halloween
+* 3 Christmas
+* 4 Easter
+* 5 Summer
+* 6 Lava */
+const byte maxNumberAnimations = 7;    // How many animations are there? Now list them out...
 const byte candleProgram = 0;
-const byte fireProgram = 1;
-const byte torchProgram = 2;
-const byte rainbowNoiseProgram = 3;
-const byte rainbowStripeNoiseProgram = 4;
-const byte partyNoiseProgram = 5;
-const byte forestNoiseProgram = 6;
-const byte cloudNoiseProgram = 7;
-const byte fireNoiseProgram = 8;
-const byte lavaNoiseProgram = 9;
-const byte oceanNoiseProgram = 10;
-const byte blackAndBlueNoiseProgram = 11;
-const byte cloudTwinklesProgram = 12;
-const byte rainbowTwinklesProgram = 13;
+const byte redsProgram = 1;
+const byte christmasProgram = 2;
+const byte pacificProgram = 3;
+const byte easterProgram = 4;
+const byte summerProgram = 5;
+const byte lavaNoiseProgram = 6;
+//const byte fireProgram = 1;
+//const byte torchProgram = 2;
+//const byte rainbowNoiseProgram = 3;
+//const byte rainbowStripeNoiseProgram = 4;
+//const byte partyNoiseProgram = 5;
+//const byte forestNoiseProgram = 6;
+//const byte cloudNoiseProgram = 7;
+//const byte fireNoiseProgram = 8;
+//const byte oceanNoiseProgram = 10;
+//const byte blackAndBlueNoiseProgram = 11;
+//const byte cloudTwinklesProgram = 12;
+//const byte rainbowTwinklesProgram = 13;
 #pragma endregion
 #pragma region Buttons & Pots
-const byte powerButton = 5;							// digital pin 5
-const byte shiftFunctionButton = 9;                 // flip color hue & animations
-const byte brightnessPotPin = A0;					// needs to be analog
-const byte colorPotPin = A2;						// needs to be analog
+const byte powerButton = 5;						// digital pin 5
+const byte shiftFunctionButton = 9;             // flip color hue & animations
+const byte brightnessPotPin = A0;				// needs to be analog
+const byte colorPotPin = A2;					// needs to be analog
 #pragma endregion
-
 #pragma endregion
 #pragma region Variables
 #pragma region NeoPixel
-#define numberPixels (MATRIX_WIDTH * MATRIX_HEIGHT)
+#define numberPixels (MATRIX_WIDTH * MATRIX_HEIGHT) // Rum Lamp has 192 actual pixels so this formula presumes a few extra
 #pragma endregion
 #pragma region Palettes
 CRGBPalette16 currentPalette; // sets a variable for CRGBPalette16 which allows us to change this value later
@@ -71,11 +82,9 @@ CRGBPalette16 gPal;                         // for fire...
 CRGBPalette16 blackAndBlueStripedPalette;   // for Noise
 #pragma endregion
 #pragma region Noise animations variables
-
 #define MAX_DIMENSION ((MATRIX_WIDTH > MATRIX_HEIGHT) ? MATRIX_WIDTH : MATRIX_HEIGHT)
 
-// The 16 bit version of our coordinates
-static uint16_t noisex;
+static uint16_t noisex;                 // The 16 bit version of our coordinates
 static uint16_t noisey;
 static uint16_t noisez;
 
@@ -98,24 +107,23 @@ uint8_t noise[MAX_DIMENSION][MAX_DIMENSION];
 
 uint8_t colorLoop = 0;
 boolean initialized = false;
-
 #pragma endregion
 #pragma region Torch Variables
-uint16_t cycle_wait = 1; // 0..255
+uint16_t cycle_wait = 1;            // 0..255
 
-byte flame_min = 100; // 0..255
-byte flame_max = 220; // 0..255
+byte flame_min = 100;               // 0..255
+byte flame_max = 220;               // 0..255
 
-byte random_spark_probability = 2; // 0..100
-byte spark_min = 200; // 0..255
-byte spark_max = 255; // 0..255
+byte random_spark_probability = 2;  // 0..100
+byte spark_min = 200;               // 0..255
+byte spark_max = 255;               // 0..255
 
-byte spark_tfr = 40; // 0..256 how much energy is transferred up for a spark per cycle
-uint16_t spark_cap = 200; // 0..255: spark cells: how much energy is retained from previous cycle
+byte spark_tfr = 40;                // 0..256 how much energy is transferred up for a spark per cycle
+uint16_t spark_cap = 200;           // 0..255: spark cells: how much energy is retained from previous cycle
 
-uint16_t up_rad = 40; // up radiation
-uint16_t side_rad = 35; // sidewards radiation
-uint16_t heat_cap = 0; // 0..255: passive cells: how much energy is retained from previous cycle
+uint16_t up_rad = 40;               // up radiation
+uint16_t side_rad = 35;             // sidewards radiation
+uint16_t heat_cap = 0;              // 0..255: passive cells: how much energy is retained from previous cycle
 
 byte red_bg = 0;
 byte green_bg = 0;
@@ -124,18 +132,19 @@ byte red_bias = 10;
 byte green_bias = 0;
 byte blue_bias = 0;
 int red_energy = 180;
-int green_energy = 20; // 145;
+int green_energy = 20;              
 int blue_energy = 0;
 
-byte upside_down = 0; // if set, flame (or rather: drop) animation is upside down. Text remains as-is
+byte upside_down = 0;               // if set, flame (or rather: drop) animation is upside down. Text remains as-is
 
-#define numLeds numberPixels
-#define ledsPerLevel 11 //MATRIX_WIDTH
-#define levels 18 // MATRIX_HEIGHT
+//#define numLeds numberPixels        //   duplicate
+#define ledsPerLevel 11             //MATRIX_WIDTH
+#define levels 18                   // MATRIX_HEIGHT
 
-byte currentEnergy[numLeds]; // current energy level
-byte nextEnergy[numLeds]; // next energy level
-byte energyMode[numLeds]; // mode how energy is calculated for this point
+// All these arrays eat up memory like you wouldn't believe...
+byte currentEnergy[numberPixels];        // current energy level
+byte nextEnergy[numberPixels];           // next energy level
+byte energyMode[numberPixels];           // mode how energy is calculated for this point
 
 enum {
     torch_passive = 0, // just environment, glow from nearby radiation
@@ -157,27 +166,125 @@ uint8_t DENSITY = 255;
 uint8_t  directionFlags[(numberPixels + 7) / 8];
 enum { GETTING_DARKER = 0, GETTING_BRIGHTER = 1 };
 #pragma endregion
+#pragma region Pacifica variables
+CRGBPalette16 pacifica_palette_1 =
+{ 0x000507, 0x000409, 0x00030B, 0x00030D, 0x000210, 0x000212, 0x000114, 0x000117,
+  0x000019, 0x00001C, 0x000026, 0x000031, 0x00003B, 0x000046, 0x14554B, 0x28AA50 };
+CRGBPalette16 pacifica_palette_2 =
+{ 0x000507, 0x000409, 0x00030B, 0x00030D, 0x000210, 0x000212, 0x000114, 0x000117,
+  0x000019, 0x00001C, 0x000026, 0x000031, 0x00003B, 0x000046, 0x0C5F52, 0x19BE5F };
+CRGBPalette16 pacifica_palette_3 =
+{ 0x000208, 0x00030E, 0x000514, 0x00061A, 0x000820, 0x000927, 0x000B2D, 0x000C33,
+  0x000E39, 0x001040, 0x001450, 0x001860, 0x001C70, 0x002080, 0x1040BF, 0x2060FF };
 
+// Easter palettes
+// Spring
+// Gradient palette "spring_gp", originally from
+// http://seaviewsensing.com/pub/cpt-city/h5/tn/spring.png.index.html
+// converted for FastLED with gammas (2.6, 2.2, 2.5)
+// Size: 64 bytes of program space.
 
-//CRGB leds_plus_safety_pixel[numberPixels + 1];
-//CRGB* const leds(leds_plus_safety_pixel + 1); 
-CRGB leds[numberPixels+1];  
+DEFINE_GRADIENT_PALETTE(spring_gp) {
+    0, 255, 0, 255,
+        17, 255, 1, 212,
+        33, 255, 2, 178,
+        51, 255, 7, 145,
+        68, 255, 13, 115,
+        84, 255, 22, 92,
+        102, 255, 33, 71,
+        119, 255, 47, 52,
+        135, 255, 62, 37,
+        153, 255, 82, 25,
+        170, 255, 104, 15,
+        186, 255, 127, 9,
+        204, 255, 156, 4,
+        221, 255, 186, 1,
+        237, 255, 217, 1,
+        255, 255, 255, 0
+};
+CRGBPalette16 easter_palette_1 = spring_gp;
+
+// Gradient palette "summer_gp", originally from
+// http://seaviewsensing.com/pub/cpt-city/h5/tn/summer.png.index.html
+// converted for FastLED with gammas (2.6, 2.2, 2.5)
+// Size: 64 bytes of program space.
+
+DEFINE_GRADIENT_PALETTE(summer_gp) {
+    0, 0, 55, 25,
+        17, 1, 62, 25,
+        33, 1, 72, 25,
+        51, 3, 82, 25,
+        68, 8, 92, 25,
+        84, 14, 104, 25,
+        102, 23, 115, 25,
+        119, 35, 127, 25,
+        135, 48, 141, 25,
+        153, 67, 156, 25,
+        170, 88, 169, 25,
+        186, 112, 186, 25,
+        204, 142, 201, 25,
+        221, 175, 217, 25,
+        237, 210, 235, 25,
+        255, 255, 255, 25
+};
+
+CRGBPalette16 easter_palette_2 = summer_gp;
+
+// Gradient palette "green_gp", originally from
+// http://seaviewsensing.com/pub/cpt-city/h5/tn/green.png.index.html
+// converted for FastLED with gammas (2.6, 2.2, 2.5)
+// Size: 8 bytes of program space.
+
+DEFINE_GRADIENT_PALETTE(green_gp) {
+    0, 255, 255, 255,
+        255, 0, 255, 0
+};
+
+CRGBPalette16 easter_palette_3 = green_gp;
+
+DEFINE_GRADIENT_PALETTE(sporty1) {
+    0, 69, 69, 69,
+        17, 124, 89, 53,
+        34, 171, 0, 0,
+        51, 171, 0, 0,
+        68, 156, 30, 30,
+        85, 168, 111, 111,
+        102, 106, 29, 29,
+        119, 137, 132, 132,
+        136, 158, 158, 158,
+        153, 226, 226, 226,
+        170, 119, 94, 94,
+        187, 150, 108, 108,
+        204, 192, 149, 149,
+        221, 167, 1, 1,
+        238, 135, 88, 53,
+        255, 72, 72, 72
+};
+
+CRGBPalette16 sports_palette_1 = sporty1;
+
+#pragma endregion
+CRGB leds[numberPixels +1];  
 // it took a 8 hours+ of debugging to figure out why the Noise animations were overwriting global variables
 // turns out I needed the "safety pixel" +1 to be declared in this array
-
 #pragma region lamp control
 byte value = 0;                                     // Brightness dial
 byte program = 0;                                   // Program dial
-byte lampFunction;
+byte lampFunction = 1;                                  // Solid hue or animation?
 byte valuePrevious = 0;
 byte programPrevious = 0;
 boolean lampPowerStatus = true;						// lamp is turned on by default
 byte activeProgram = 0;                             // when animations are active, which one is running
+int priorProgramDialValuePotRead = -1;              // used to do band ranges in ProgramDial()
+int priorBrightnessDialValuePotRead = 0;            // used to do band ranges in BrightnessDial()
+unsigned long startMillis;  //some global variables available anywhere in the program
+unsigned long currentMillis;
+const unsigned long period = 333;  //the value is a number of milliseconds (i.e. 3 times a second)
 #pragma endregion
 #pragma endregion
-
 void setup() {
 Serial.begin(115200);								// start serial comms for terminal
+startMillis = millis();  //initial start time
 #pragma region Initialize buttons
 pinMode(powerButton, INPUT);						// set button to input
 digitalWrite(powerButton, HIGH);					// turn on pullup resistors
@@ -191,8 +298,6 @@ FastLED.setBrightness(255);							// 0 - 255
 currentPalette = HeatColors_p;                      // for candle effect
 gPal = HeatColors_p;                                // for fire effect
 }
-
-
 void mapNoiseToLEDsUsingPalette(CRGBPalette16 palette)
 {
     static uint8_t ihue = 0;
@@ -223,13 +328,9 @@ void mapNoiseToLEDsUsingPalette(CRGBPalette16 palette)
             CRGB color = ColorFromPalette(palette, index, bri);
             uint16_t n = XY(i, j);
 
-            //leds[50] = color;   // works
-            leds[XY(i, j)] = ColorFromPalette(palette, index, bri); //fails - works when array is +1
-            //leds[XY(i, j)] = CRGB::Aquamarine;  // fails
-
+            leds[XY(i, j)] = ColorFromPalette(palette, index, bri); // only works when leds array is +1
         }
     }
-
     ihue += 1;
 }
 
@@ -249,51 +350,74 @@ void loop() {
     }
 
 	if (lampPowerStatus == true) {      // everything after this point is where LEDs are on and we pay attention to dials & buttons
-		value = brightnessDial();
-		program = programDial();
+		
+        // only check pots a few times a second
+        currentMillis = millis();
+        if (currentMillis - startMillis >= period)  //test whether the period has elapsed
+        {
+            value = brightnessDial();
+            program = programDial();
+            startMillis = currentMillis;
+        }
 
         if (digitalRead(shiftFunctionButton) == false) {
             
             if (lampFunction == 0) {
-                lampFunction = 1;   //animation
+                lampFunction = 1;   // animation
             }
             else {
-                lampFunction = 0;   //lamp
+                lampFunction = 0;   // lamp
             }
             valuePrevious--;
             fadeLamp();
             if (lampFunction == 0) { FastLED.setBrightness(255); }
             FastLED.delay(150);
-            //Serial.println("");
-            //Serial.print("S");
-           // Serial.println(lampFunction);
         }
 
 		if ((value != valuePrevious) || (program != programPrevious)) {	// if either dial changed (or hack earlier triggers this)
-
-            //if (value != valuePrevious) FastLED.delay(1);
-            //if (program != programPrevious) FastLED.delay(1);
-
-            valuePrevious = value;			                    // remember for next time round
+            valuePrevious = value;			         // remember for next time round
             programPrevious = program;
 
 			if (lampFunction == 0) {				// basic single color lamp
 				setLampColor(); 
 			}
-            if (lampFunction == 1) {  // based on program dial, figure out which special program will now run
+            if (lampFunction == 1) {                // based on program dial, figure out which special program will now run
                 activeProgram = map(program, 0, 254, 0, maxNumberAnimations);
-                FastLED.setBrightness(value);               // set led strip overall brightness
+                FastLED.setBrightness(value);       // set led strip overall brightness
 			}
 		}
         
-		if (lampFunction == 1) {   // animation section. This executes repeatedly, rapidly in order to see animations
+		if (lampFunction == 1) {                    // Animation section. This executes repeatedly, rapidly in order to see animations
             switch (activeProgram)
 			{
 			case candleProgram:
 				candleEffect();
-				FastLED.delay(1000 / FRAMES_PER_SECOND); // sets a delay using the number 1000 devided by the predetermined frames per second.
+				FastLED.delay(1000 / FRAMES_PER_SECOND);
 				break;
-
+            case lavaNoiseProgram:
+                lavaNoise();
+                FastLED.delay(1000 / FRAMES_PER_SECOND);
+                break;
+            case summerProgram:
+                summerRainbowNoise();
+                break;
+            case christmasProgram:
+                fireNoise();
+                break;
+            case easterProgram:
+                pacifica_loop(easter_palette_1, easter_palette_2, easter_palette_1, easter_palette_3, false);
+                FastLED.delay(1000 / FRAMES_PER_SECOND);
+                break;
+            case redsProgram:
+                pacifica_loop(sports_palette_1, sports_palette_1, sports_palette_1, sports_palette_1, true);
+                FastLED.delay(1000 / FRAMES_PER_SECOND);
+                break;
+            case pacificProgram:
+                pacifica_loop(pacifica_palette_1, pacifica_palette_2, pacifica_palette_3, pacifica_palette_3, true);
+                FastLED.delay(1000 / FRAMES_PER_SECOND);
+                break;
+                
+                /*
 			case fireProgram:
                 Fire2012WithPalette(); // run simulation frame, using palette colors
                 FastLED.delay(1000 / FRAMES_PER_SECOND);
@@ -303,11 +427,9 @@ void loop() {
                 torch();
 				break;
 
-            case rainbowNoiseProgram:
-                rainbowNoise();
-                break;
 
-            case rainbowStripeNoiseProgram: // not as nice as rainbownoise
+
+            case rainbowStripeNoiseProgram:
                 rainbowStripeNoise();
                 break;
 
@@ -327,10 +449,7 @@ void loop() {
                 fireNoise();
                 break;
 
-            case lavaNoiseProgram: 
-                lavaNoise();
-                FastLED.delay(1000 / FRAMES_PER_SECOND);
-                break;
+            
 
             case oceanNoiseProgram: 
                 oceanNoise();
@@ -350,7 +469,7 @@ void loop() {
                 rainbowTwinkles();
                 FastLED.delay(1000 / FRAMES_PER_SECOND);
                 break;
-
+                */
 			default:
 				break;
 			}
@@ -359,24 +478,31 @@ void loop() {
 	}
 }
 byte brightnessDial() {
-    byte response = 0;
-    int valuePotRead = analogRead(brightnessPotPin);		// read the value from the pot
-	byte proposedValue = map(valuePotRead, 0, 1023, 255, 5);// map to brightness for fastled
-    if (abs(proposedValue - value) > 1) {
-        response = proposedValue;
+   // byte response = 0;
+    int brightnessDialValuePotRead = analogRead(brightnessPotPin);		// read the value from the pot
+
+    // this code only updates if outside a band range
+    if ((brightnessDialValuePotRead + 25) <= priorBrightnessDialValuePotRead || (brightnessDialValuePotRead - 25) >= priorBrightnessDialValuePotRead)   //** make 5 a constant
+    {
+        // we are outside of the band range, so OK to update it
+        priorBrightnessDialValuePotRead = brightnessDialValuePotRead;
     }
-    else { response = value; }
-    return response;
+
+	byte proposedValue = map(priorBrightnessDialValuePotRead, 0, 1023, 255, 5);// map to brightness for fastled
+    return proposedValue;
 }
 byte programDial() {
-    byte response = 0;
-	int valuePotRead = analogRead(colorPotPin);			    // read the value from the pot
-	byte proposedProgram = map(valuePotRead, 0, 1023, 255, 0);		
-    if (abs(proposedProgram - program) > 1) {
-        response = proposedProgram;
+	int programDialValuePotRead = analogRead(colorPotPin);			    // read the value from the pot
+
+    // this code only updates if outside a band range
+    if ((programDialValuePotRead + 25) <= priorProgramDialValuePotRead || (programDialValuePotRead - 25) >= priorProgramDialValuePotRead)   //** make 5 a constant
+    {
+        // we are outside of the band range, so OK to update it
+        priorProgramDialValuePotRead = programDialValuePotRead;
     }
-    else { response = program; }
-	return response;							
+
+	byte proposedProgram = map(priorProgramDialValuePotRead, 0, 1023, 255, 0);	// map the pot reading into a 0-255 range
+	return proposedProgram;
 }
 void fadeLamp() {
     for (byte counter = 0; counter < 50; counter++) {
@@ -384,9 +510,11 @@ void fadeLamp() {
         FastLED.delay(20);
     }
 }
-void setLampColor() {                               // Set solid hue of lamp
-	byte paletteIndex = map(program, 0, 255, 67, 235);  // map program dial to a range we know looks good in the heat palette
-	fill_palette(leds, numberPixels, paletteIndex, 0, currentPalette, value, LINEARBLEND);
+void setLampColor() {                                   // Set solid hue of lamp ** just declare this once or only update when there's a change
+    CRGBPalette16 lampPalette;
+    lampPalette = LavaColors_p;
+	byte paletteIndex = map(program, 0, 255, 150, 230);  // map program dial to a range we know looks good in the  palette
+	fill_palette(leds, numberPixels, paletteIndex, 0, lampPalette, value, LINEARBLEND); 
     // leds = array for the NeoPixels
     // numberPixels = how many pixels are there (192 but it calculates a little more than that)
     // paletteIndex = how far along the palette do we want to sample
@@ -394,6 +522,7 @@ void setLampColor() {                               // Set solid hue of lamp
 }
 
 #pragma region Animation functions
+#pragma region Candle
 void candleEffect()
 {
     COOLING = map(value, 1, 255, 20, 100);
@@ -423,7 +552,9 @@ void candleEffect()
         leds[j] = ColorFromPalette(currentPalette, colorindex);
     }
 }
+#pragma endregion
 #pragma region Torch
+/*
 void torch() {
     injectRandom();
     calcNextEnergy();
@@ -557,7 +688,7 @@ void injectRandom()
             energyMode[i] = torch_spark;
         }
     }
-}
+}*/
 #pragma endregion
 #pragma region Noise
 
@@ -618,7 +749,7 @@ void drawNoise(CRGBPalette16 palette) {
     // using the current palette
     mapNoiseToLEDsUsingPalette(palette);
 }
-
+/*
 void cloudNoise() {
     noisespeedx = 9;
     noisespeedy = 0;
@@ -628,13 +759,7 @@ void cloudNoise() {
     drawNoise(CloudColors_p);
 }
 
-void rainbowNoise() {
-    noisespeedx = 9;
-    noisespeedy = 0;
-    noisespeedz = 0;
-    noisescale = 30;
-    colorLoop = 0;
-    drawNoise(RainbowColors_p);
+
 }
 
 void rainbowStripeNoise() {
@@ -663,16 +788,23 @@ void forestNoise() {
     colorLoop = 0;
     drawNoise(ForestColors_p);
 }
-
+*/
 void fireNoise() {
     noisespeedx = 8; // 24;
     noisespeedy = 0;
-    noisespeedz = 8;
-    noisescale = 50;
+    noisespeedz = 1;    // speed
+    noisescale = 50;   // lower number = more blocky
     colorLoop = 0;
     drawNoise(HeatColors_p);
 }
-
+void summerRainbowNoise() {
+    noisespeedx = 9;
+    noisespeedy = 0;
+    noisespeedz = 0;
+    noisescale = 30;
+    colorLoop = 0;
+    drawNoise(RainbowColors_p);
+}
 void lavaNoise() {
     noisespeedx = 32;
     noisespeedy = 0;
@@ -682,7 +814,7 @@ void lavaNoise() {
     drawNoise(LavaColors_p);
 }
 
-void oceanNoise() {
+/*void oceanNoise() {
     noisespeedx = 9;
     noisespeedy = 0;
     noisespeedz = 0;
@@ -712,7 +844,7 @@ void SetupBlackAndBlueStripedPalette()
     for (uint8_t i = 0; i < 6; i++) {
         blackAndBlueStripedPalette[i] = CRGB::Blue;
     }
-}
+}*/
 
 uint16_t XY(uint8_t x, uint8_t y) // maps the matrix to the strip
 {
@@ -728,6 +860,7 @@ uint16_t XY(uint8_t x, uint8_t y) // maps the matrix to the strip
 }
 #pragma endregion
 #pragma region Twinkles
+/*
 void cloudTwinkles()
 {
     DENSITY = 255;
@@ -805,9 +938,10 @@ void setPixelDirection(uint16_t i, bool dir) {
     }
     directionFlags[index] = value;
 }
+*/
 #pragma endregion
 #pragma region Fire
-void Fire2012WithPalette()
+/*void Fire2012WithPalette()
 // Fire2012 by Mark Kriegsman, July 2012
 // as part of "Five Elements" shown here: http://youtu.be/knWiGsmgycY
 //// 
@@ -869,6 +1003,105 @@ void Fire2012WithPalette()
 
         leds[pixelnumber] = color;
     }
+}*/
+#pragma endregion
+
+#pragma region Pacifica
+void pacifica_loop(CRGBPalette16& palette1, CRGBPalette16& palette2, CRGBPalette16& palette3, CRGBPalette16& palette4, bool whitecaps)
+{
+    // In this animation, there are four "layers" of waves of light.  
+//
+// Each layer moves independently, and each is scaled separately.
+//
+// All four wave layers are added together on top of each other, and then 
+// another filter is applied that adds "whitecaps" of brightness where the 
+// waves line up with each other more.  Finally, another pass is taken
+// over the led array to 'deepen' (dim) the blues and greens.
+//
+// The speed and scale and motion each layer varies slowly within independent 
+// hand-chosen ranges, which is why the code has a lot of low-speed 'beatsin8' functions
+// with a lot of oddly specific numeric ranges.
+//
+// These three custom blue-green color palettes were inspired by the colors found in
+// the waters off the southern coast of California, https://goo.gl/maps/QQgd97jjHesHZVxQ7
+    // Increment the four "color index start" counters, one for each wave layer.
+    // Each is incremented at a different speed, and the speeds vary over time.
+    static uint16_t sCIStart1, sCIStart2, sCIStart3, sCIStart4;
+    static uint32_t sLastms = 0;
+    uint32_t ms = GET_MILLIS();
+    uint32_t deltams = ms - sLastms;
+    sLastms = ms;
+    uint16_t speedfactor1 = beatsin16(3, 179, 269);
+    uint16_t speedfactor2 = beatsin16(4, 179, 269);
+    uint32_t deltams1 = (deltams * speedfactor1) / 256;
+    uint32_t deltams2 = (deltams * speedfactor2) / 256;
+    uint32_t deltams21 = (deltams1 + deltams2) / 2;
+    sCIStart1 += (deltams1 * beatsin88(1011, 10, 13));
+    sCIStart2 -= (deltams21 * beatsin88(777, 8, 11));
+    sCIStart3 -= (deltams1 * beatsin88(501, 5, 7));
+    sCIStart4 -= (deltams2 * beatsin88(257, 4, 6));
+
+    // Clear out the LED array to a dim background blue-green
+    fill_solid(leds, numberPixels, CRGB(2, 6, 10));
+
+    // Render each of four layers, with different scales and speeds, that vary over time
+    pacifica_one_layer(palette1,   sCIStart1, beatsin16(3, 11 * 256, 14 * 256), beatsin8(10, 70, 130), 0 - beat16(301));
+    pacifica_one_layer(palette2, sCIStart2, beatsin16(4, 6 * 256, 9 * 256), beatsin8(17, 40, 80), beat16(401));
+    pacifica_one_layer(palette3, sCIStart3, 6 * 256, beatsin8(9, 10, 38), 0 - beat16(503));
+    pacifica_one_layer(palette4, sCIStart4, 5 * 256, beatsin8(8, 10, 28), beat16(601));
+
+    // Add brighter 'whitecaps' where the waves lines up more
+   if (whitecaps) pacifica_add_whitecaps(); 
+
+    // Deepen the blues and greens a bit
+    pacifica_deepen_colors();
+}
+
+// Add one layer of waves into the led array
+void pacifica_one_layer(CRGBPalette16& p, uint16_t cistart, uint16_t wavescale, uint8_t bri, uint16_t ioff)
+{
+    uint16_t ci = cistart;
+    uint16_t waveangle = ioff;
+    uint16_t wavescale_half = (wavescale / 2) + 20;
+    for (uint16_t i = 0; i < numberPixels; i++) {
+        waveangle += 250;
+        uint16_t s16 = sin16(waveangle) + 32768;
+        uint16_t cs = scale16(s16, wavescale_half) + wavescale_half;
+        ci += cs;
+        uint16_t sindex16 = sin16(ci) + 32768;
+        uint8_t sindex8 = scale16(sindex16, 240);
+        CRGB c = ColorFromPalette(p, sindex8, bri, LINEARBLEND);
+        leds[i] += c;
+    }
+}
+
+// Add extra 'white' to areas where the four layers of light have lined up brightly
+void pacifica_add_whitecaps()
+{
+    uint8_t basethreshold = beatsin8(9, 55, 65);
+    uint8_t wave = beat8(7);
+
+    for (uint16_t i = 0; i < numberPixels; i++) {
+        uint8_t threshold = scale8(sin8(wave), 20) + basethreshold;
+        wave += 7;
+        uint8_t l = leds[i].getAverageLight();
+        if (l > threshold) {
+            uint8_t overage = l - threshold;
+            uint8_t overage2 = qadd8(overage, overage);
+            leds[i] += CRGB(overage, overage2, qadd8(overage2, overage2));
+        }
+    }
+}
+
+// Deepen the blues and greens
+void pacifica_deepen_colors()
+{
+    for (uint16_t i = 0; i < numberPixels; i++) {
+        leds[i].blue = scale8(leds[i].blue, 145);
+        leds[i].green = scale8(leds[i].green, 200);
+        leds[i] |= CRGB(2, 5, 7);
+    }
 }
 #pragma endregion
 #pragma endregion
+

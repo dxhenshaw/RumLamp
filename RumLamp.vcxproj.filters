@@ -1,28 +1,586 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Misc Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>xml;json;txt;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="RumLamp.ino" />
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\abi.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\CDC.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial0.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial1.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial2.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial3.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\hooks.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\IPAddress.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\main.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\new.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\PluggableUSB.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Print.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Stream.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Tone.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBCore.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WInterrupts.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_analog.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_digital.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_pulse.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_shift.c">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WMath.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WString.cpp">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\bitswap.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\colorpalettes.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\colorutils.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\FastLED.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\hsv2rgb.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\lib8tion.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\noise.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\platforms.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\power_mgt.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\wiring.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\FastLED\src\platforms\esp\32\clockless_rmt_esp32.cpp">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RumLamp.ino" />
-    <None Include="src\arduino folders read me.txt">
-      <Filter>Misc Files</Filter>
+    <ClInclude Include="__vm\.RumLamp.vsarduino.h" />
+    <ClInclude Include="__vm\.RumLampV2.vsarduino.h" />
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\binary.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Client.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\HardwareSerial_private.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\IPAddress.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\new.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\PluggableUSB.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Print.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Printable.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Server.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Stream.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\Udp.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBAPI.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBCore.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\USBDesc.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WCharacter.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_private.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\WString.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\micro\pins_arduino.h">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\bitswap.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\chipsets.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\color.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\colorpalettes.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\colorutils.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\controller.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\cpp_compat.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\dmx.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\FastLED.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastled_config.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastled_delay.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastled_progmem.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastpin.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi_bitbang.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi_dma.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi_nop.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi_ref.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\fastspi_types.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\hsv2rgb.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\led_sysdefs.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\lib8tion.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\noise.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\pixelset.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\pixeltypes.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\power_mgt.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\lib8tion\math8.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\lib8tion\random8.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\lib8tion\scale8.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\lib8tion\trig8.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\fastspi_ardunio_core.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\apollo3\clockless_apollo3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\apollo3\fastled_apollo3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\apollo3\fastpin_apollo3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\apollo3\fastspi_apollo3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\apollo3\led_sysdefs_apollo3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\common\m0clockless.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d21\clockless_arm_d21.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d21\fastled_arm_d21.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d21\fastpin_arm_d21.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d21\led_sysdefs_arm_d21.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d51\clockless_arm_d51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d51\fastled_arm_d51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d51\fastpin_arm_d51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\d51\led_sysdefs_arm_d51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\clockless_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\clockless_block_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\fastled_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\fastpin_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\fastspi_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\led_sysdefs_arm_k20.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\octows2811_controller.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\smartmatrix_t3.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k20\ws2812serial_controller.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\clockless_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\clockless_block_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\fastled_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\fastpin_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\fastspi_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\k66\led_sysdefs_arm_k66.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\kl26\clockless_arm_kl26.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\kl26\fastled_arm_kl26.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\kl26\fastpin_arm_kl26.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\kl26\fastspi_arm_kl26.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\kl26\led_sysdefs_arm_kl26.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\block_clockless_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\clockless_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\fastled_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\fastpin_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\fastspi_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\led_sysdefs_arm_mxrt1062.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\mxrt1062\octows2811_controller.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf51\clockless_arm_nrf51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf51\fastled_arm_nrf51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf51\fastpin_arm_nrf51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf51\fastspi_arm_nrf51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf51\led_sysdefs_arm_nrf51.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\arbiter_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\clockless_arm_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\fastled_arm_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\fastpin_arm_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\fastpin_arm_nrf52_variants.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\fastspi_arm_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\nrf52\led_sysdefs_arm_nrf52.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\clockless_arm_rp2040.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\fastled_arm_rp2040.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\fastpin_arm_rp2040.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\led_sysdefs_arm_rp2040.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\pio_asm.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\rp2040\pio_gen.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\clockless_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\clockless_block_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\fastled_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\fastpin_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\fastspi_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\sam\led_sysdefs_arm_sam.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\stm32\clockless_arm_stm32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\stm32\cm3_regs.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\stm32\fastled_arm_stm32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\stm32\fastpin_arm_stm32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\arm\stm32\led_sysdefs_arm_stm32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\avr\clockless_trinket.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\avr\fastled_avr.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\avr\fastpin_avr.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\avr\fastspi_avr.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\avr\led_sysdefs_avr.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\clockless_block_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\clockless_i2s_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\clockless_rmt_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\fastled_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\fastpin_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\fastspi_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\32\led_sysdefs_esp32.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\clockless_block_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\clockless_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\fastled_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\fastpin_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\fastspi_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libraries\FastLED\src\platforms\esp\8266\led_sysdefs_esp8266.h">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\arduino folders read me.txt" />
+    <None Include="..\..\..\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino\wiring_pulse.S">
+      <Filter>src\_micro-api-readonly\core</Filter>
+    </None>
+    <None Include="..\libraries\FastLED\library.json">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </None>
+    <None Include="..\libraries\FastLED\library.properties">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </None>
+    <None Include="..\libraries\FastLED\docs\include\footer.html">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </None>
+    <None Include="..\libraries\FastLED\docs\include\header.html">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.RumLamp.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Filter Include="src">
+      <UniqueIdentifier>{4d5e7558-2a78-4dcb-b9ed-fe2a7f66b181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly">
+      <UniqueIdentifier>{ddc76e2c-efb5-426c-8fd9-d53d7f9654f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\core">
+      <UniqueIdentifier>{c3c1448d-c11f-48e2-8654-7caec9b29ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries">
+      <UniqueIdentifier>{522eb52f-f116-440d-b9b6-0837839c7ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\_micro-api-readonly\libraries\FastLED">
+      <UniqueIdentifier>{764ff2f2-aa2a-47d0-bb69-38533ceb3f73}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\libraries\FastLED\CMakeLists.txt">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </Text>
+    <Text Include="..\libraries\FastLED\keywords.txt">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </Text>
+    <Text Include="..\libraries\FastLED\src\platforms\arm\d51\README.txt">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\libraries\FastLED\docs\DoxygenLayout.xml">
+      <Filter>src\_micro-api-readonly\libraries\FastLED</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
